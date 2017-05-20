@@ -6,5 +6,12 @@ var t = TrelloPowerUp.iframe();
 var myData = document.getElementById('myData');
 
 t.render(function(){
-  console.log(t.card);
+ t.card()
+ .get('label')
+ .then(function(success) {
+  console.log(success);
+ })
+ .error(function(fail) {
+  console.log(fail);
+ });
 });
