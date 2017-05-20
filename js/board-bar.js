@@ -10,7 +10,7 @@ t.render(function () {
     .then(function (success) {
       console.log(success);
     })
-    .error(function (fail) {
+    .catch(function (fail) {
       console.log(fail);
     });
 });
