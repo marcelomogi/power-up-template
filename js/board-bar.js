@@ -5,13 +5,12 @@ var t = TrelloPowerUp.iframe();
 
 var myData = document.getElementById('myData');
 
-t.render(function(){
- t.card()
- .get('label')
- .then(function(success) {
-  console.log(success);
- })
- .error(function(fail) {
-  console.log(fail);
- });
+t.render(function () {
+  t.card('all')
+    .then(function (success) {
+      console.log(success);
+    })
+    .error(function (fail) {
+      console.log(fail);
+    });
 });
