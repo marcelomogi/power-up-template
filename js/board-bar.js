@@ -1,13 +1,13 @@
-/* global TrelloPowerUp */
+;;;/* global TrelloPowerUp */
 
 var Promise = TrelloPowerUp.Promise;
 var t = TrelloPowerUp.iframe();
 
 var myData = document.getElementById('myData');
 
-const levels = ['N1', 'N2', 'N3', 'N4'];
+const LEVELS = ['N1', 'N2', 'N3', 'N4'];
 
-t.board('all')
+t.lists('all')
   .then(function (success) {
     console.log('Board:', success);
 
@@ -18,11 +18,22 @@ t.board('all')
 
 t.render(function () {
   t.cards('all')
-    .then(function (success) {
-      console.log('Sucess:', success);
-
+    .then(function (cards) {
+      console.log('Sucess:', cards);
+      var matrix = generateLevelMatrix(cards);
+      console.log('Matrix:',matrix);
     })
     .catch(function (fail) {
       console.log('Fail:', fail);
     });
 });
+
+generateLevelMatrix = function (cards) {
+  var cardsByLevel = {};
+  _.forEach(LEVELS, function (level) {
+    cardsByLevel[level] = _.filter(cards, function (card) {
+      return _.indexOf(card.labels, level) > -1;
+    });
+  });
+  return cardsByLevel;
+}
