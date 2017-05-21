@@ -27,7 +27,7 @@ t.render(function () {
       console.log('Sucess:', cards);
       var matrix = generateLevelMatrix(cards);
       _.forEach(LEVELS, function (level) {
-        totalDone[level].innerHTML = matrix[level].donePercentage * 100;
+        totalDone[level].innerHTML = (matrix[level].donePercentage * 100).toFixed(2) + '%';
       });
     })
     .catch(function (fail) {
