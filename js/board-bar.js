@@ -6,7 +6,7 @@ var t = TrelloPowerUp.iframe();
 var myData = document.getElementById('myData');
 
 t.render(function () {
-  t.card('all')
+  t.cards('all')
     .then(function (success) {
       console.log(success);
     })
