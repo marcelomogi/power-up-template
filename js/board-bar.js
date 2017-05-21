@@ -8,9 +8,9 @@ var myData = document.getElementById('myData');
 t.render(function () {
   t.cards('all')
     .then(function (success) {
-      console.log(success);
+      console.log('Sucess:', success);
     })
     .catch(function (fail) {
-      console.log(fail);
+      console.log('Fail:', fail);
     });
 });
