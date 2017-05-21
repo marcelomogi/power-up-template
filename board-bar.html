@@ -1,14 +1,41 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="https://trello.com/power-ups/power-up.css">
-    <link rel="stylesheet" href="./css/board-bar.css">
-    <script src="https://trello.com/power-ups/power-up.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-  </head>
-  <body>
-    <div id="content">
-      <p id="myData"/>
-    </div>
-    <script src="./js/board-bar.js"></script>
-  </body>
+
+<head>
+  <link rel="stylesheet" href="https://trello.com/power-ups/power-up.css">
+  <link rel="stylesheet" href="./css/board-bar.css">
+  <script src="https://trello.com/power-ups/power-up.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <style>
+    th { color: black }
+    </style>
+</head>
+
+<body>
+  <div id="content">
+    <table>
+      <tr>
+        <th>N1</th>
+        <th>N2</th>
+        <th>N3</th>
+        <th>N4</th>
+      </tr>
+      <tr>
+        <td>
+          <p id='totalDoneN1' />
+        </td>
+        <td>
+          <p id='totalDoneN2' />
+        </td>
+        <td>
+          <p id='totalDoneN3' />
+        </td>
+        <td>
+          <p id='totalDoneN4' />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <script src="./js/board-bar.js"></script>
+</body>
+
 </html>

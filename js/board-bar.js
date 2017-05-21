@@ -3,7 +3,12 @@
 var Promise = TrelloPowerUp.Promise;
 var t = TrelloPowerUp.iframe();
 
-var myData = document.getElementById('myData');
+var totalDone = {};
+totalDone['N1'] = document.getElementById('totalDoneN1');
+totalDone['N2'] = document.getElementById('totalDoneN2');
+totalDone['N3'] = document.getElementById('totalDoneN3');
+totalDone['N4'] = document.getElementById('totalDoneN4');
+
 
 const LEVELS = ['N1', 'N2', 'N3', 'N4'];
 
@@ -21,10 +26,9 @@ t.render(function () {
     .then(function (cards) {
       console.log('Sucess:', cards);
       var matrix = generateLevelMatrix(cards);
-
-      console.log('Matrix:', matrix);
-
-
+      _.forEach(LEVELS, function (level) {
+        totalDone[level].innerHTML = matrix[level].donePercentage * 100;
+      });
     })
     .catch(function (fail) {
       console.log('Fail:', fail);
@@ -41,8 +45,8 @@ generateLevelMatrix = function (cards) {
     cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { idList: '591a47b3c64a334660aa72af' });
     cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { idList: '591a47b17f78f4dbf51ad600' });
     var total = cardsByLevel[level].cards.length;
-    cardsByLevel[level].donePercentage = ( cardsByLevel[level].cardsDone.length / total );
-    cardsByLevel[level].WIPPercentage = ( cardsByLevel[level].cardsWIP.length / total );
+    cardsByLevel[level].donePercentage = (cardsByLevel[level].cardsDone.length / total);
+    cardsByLevel[level].WIPPercentage = (cardsByLevel[level].cardsWIP.length / total);
   });
   return cardsByLevel;
 }
