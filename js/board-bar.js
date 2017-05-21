@@ -7,7 +7,7 @@ var myData = document.getElementById('myData');
 
 const levels = ['N1', 'N2', 'N3', 'N4'];
 
-board('all')
+t.board('all')
   .then(function (success) {
     console.log('Board:', success);
 
