@@ -21,7 +21,10 @@ t.render(function () {
     .then(function (cards) {
       console.log('Sucess:', cards);
       var matrix = generateLevelMatrix(cards);
-      console.log('Matrix:',matrix);
+
+      console.log('Matrix:', matrix);
+
+
     })
     .catch(function (fail) {
       console.log('Fail:', fail);
@@ -31,9 +34,16 @@ t.render(function () {
 generateLevelMatrix = function (cards) {
   var cardsByLevel = {};
   _.forEach(LEVELS, function (level) {
-    cardsByLevel[level] = _.filter(cards, function (card) {
-      return _.indexOf(card.labels, level) > -1;
+    cardsByLevel[level] = {};
+    cardsByLevel[level].cards = _.filter(cards, function (card) {
+      return _.find(card.labels, { 'name': level }) != null;
     });
+    cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { listId: '591a47b3c64a334660aa72af' });
+    cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { listId: '591a47b17f78f4dbf51ad600' });
+    var total = cardsByLevel[level].cards.length;
+    cardsByLevel[level].donePercentage = ( cardsByLevel[level].cardsDone.length / total );
+    cardsByLevel[level].WIPPercentage = ( cardsByLevel[level].cardsWIP.length / total );
   });
   return cardsByLevel;
 }
+

@@ -1,0 +1,59 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js">
+
+</script>
+
+<script>
+    const LEVELS = ['N1', 'N2', 'N3', 'N4'];
+
+    var cards = [
+       { "labels": [ { "name": "N1" }, { "name": "X1" } ], "name": "N1", "listId": "123" },
+{ "labels": [ { "name": "N1" }, { "name": "X2" } ], "name": "N2", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N1" }, { "name": "X3" } ], "name": "N3", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N1" }, { "name": "X4" } ], "name": "N4", "listId": "123" },
+{ "labels": [ { "name": "N1" }, { "name": "X5" } ], "name": "N5", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N1" }, { "name": "X6" } ], "name": "N6", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N1" }, { "name": "X7" } ], "name": "N7", "listId": "123" },
+{ "labels": [ { "name": "N1" }, { "name": "X8" } ], "name": "N8", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N2" }, { "name": "X1" } ], "name": "N9", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N2" }, { "name": "X2" } ], "name": "N10", "listId": "123" },
+{ "labels": [ { "name": "N2" }, { "name": "X3" } ], "name": "N11", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N2" }, { "name": "X4" } ], "name": "N12", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N2" }, { "name": "X5" } ], "name": "N13", "listId": "123" },
+{ "labels": [ { "name": "N2" }, { "name": "X6" } ], "name": "N14", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N2" }, { "name": "X7" } ], "name": "N15", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N2" }, { "name": "X8" } ], "name": "N16", "listId": "123" },
+{ "labels": [ { "name": "N3" }, { "name": "X1" } ], "name": "N17", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N3" }, { "name": "X2" } ], "name": "N18", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N3" }, { "name": "X3" } ], "name": "N19", "listId": "123" },
+{ "labels": [ { "name": "N3" }, { "name": "X4" } ], "name": "N20", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N3" }, { "name": "X5" } ], "name": "N21", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N3" }, { "name": "X6" } ], "name": "N22", "listId": "123" },
+{ "labels": [ { "name": "N3" }, { "name": "X7" } ], "name": "N23", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N3" }, { "name": "X8" } ], "name": "N24", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N4" }, { "name": "X1" } ], "name": "N25", "listId": "123" },
+{ "labels": [ { "name": "N4" }, { "name": "X2" } ], "name": "N26", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N4" }, { "name": "X3" } ], "name": "N27", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N4" }, { "name": "X4" } ], "name": "N28", "listId": "123" },
+{ "labels": [ { "name": "N4" }, { "name": "X5" } ], "name": "N29", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N4" }, { "name": "X6" } ], "name": "N30", "listId": "591a47b17f78f4dbf51ad600" },
+{ "labels": [ { "name": "N4" }, { "name": "X7" } ], "name": "N31", "listId": "591a47b3c64a334660aa72af" },
+{ "labels": [ { "name": "N4" }, { "name": "X8" } ], "name": "N32", "listId": "591a47b17f78f4dbf51ad600" }
+    ];
+
+    generateLevelMatrix = function (cards) {
+        var cardsByLevel = {};
+        _.forEach(LEVELS, function (level) {
+            cardsByLevel[level] = {};
+            cardsByLevel[level].cards = _.filter(cards, function (card) {
+                return _.find(card.labels, { 'name': level }) != null;
+            });
+            cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { listId: '591a47b3c64a334660aa72af' });
+            cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { listId: '591a47b17f78f4dbf51ad600' });
+        });
+        return cardsByLevel;
+    }
+
+
+    console.log(generateLevelMatrix(cards));
+
+</script>
