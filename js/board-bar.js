@@ -38,8 +38,8 @@ generateLevelMatrix = function (cards) {
     cardsByLevel[level].cards = _.filter(cards, function (card) {
       return _.find(card.labels, { 'name': level }) != null;
     });
-    cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { listId: '591a47b3c64a334660aa72af' });
-    cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { listId: '591a47b17f78f4dbf51ad600' });
+    cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { idList: '591a47b3c64a334660aa72af' });
+    cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { idList: '591a47b17f78f4dbf51ad600' });
     var total = cardsByLevel[level].cards.length;
     cardsByLevel[level].donePercentage = ( cardsByLevel[level].cardsDone.length / total );
     cardsByLevel[level].WIPPercentage = ( cardsByLevel[level].cardsWIP.length / total );
