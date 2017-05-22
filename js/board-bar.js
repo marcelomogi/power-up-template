@@ -29,6 +29,10 @@ t.render(function () {
       _.forEach(LEVELS, function (level) {
         totalDone[level].innerHTML = (matrix[level].donePercentage * 100).toFixed(2) + '%';
       });
+
+
+
+
     })
     .catch(function (fail) {
       console.log('Fail:', fail);
@@ -37,17 +41,53 @@ t.render(function () {
 
 generateLevelMatrix = function (cards) {
   var cardsByLevel = {};
+  //Calculates the total amount by level AND categoty
+  _.forEach(cards, function (card) {
+    var level = card.labels[0].name;
+    var categoryLabel = card.labels[1].name;
+    if (cardsByLevel[categoryLabel] == null) {
+      cardsByLevel[categoryLabel] = {
+        category: categoryLabel,
+      };
+    }
+    if (cardsByLevel[categoryLabel][level] == null) {
+      cardsByLevel[categoryLabel][level] = {
+        cardsDone: [],
+        cardsWIP: [],
+        total: 0
+      }
+    }
+
+    var node = cardsByLevel[categoryLabel][level];
+
+    if (card.idList == '591a47b3c64a334660aa72af') {
+      node.cardsDone.push(card)
+    } else if (card.idList == '591a47b3c64a334660aa72af') {
+      node.cardsWIP.push(card)
+    }
+    node.total++;
+    node.donePercentage = node.cardsDone.length / node.total;
+    node.WIPPercentage = node.cardsWIP.length / node.total;
+  });
+
+  //Calculates the total amount by level
+  cardsByLevel['total'] = {
+    category: 'total'
+  };
+
   _.forEach(LEVELS, function (level) {
-    cardsByLevel[level] = {};
-    cardsByLevel[level].cards = _.filter(cards, function (card) {
+    cardsByLevel['total'][level] = {};
+
+    var node = cardsByLevel['total'][level];
+    node.cards = _.filter(cards, function (card) {
       return _.find(card.labels, { 'name': level }) != null;
     });
-    cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { idList: '591a47b3c64a334660aa72af' });
-    cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { idList: '591a47b17f78f4dbf51ad600' });
-    var total = cardsByLevel[level].cards.length;
-    cardsByLevel[level].donePercentage = (cardsByLevel[level].cardsDone.length / total);
-    cardsByLevel[level].WIPPercentage = (cardsByLevel[level].cardsWIP.length / total);
+    node.cardsDone = _.filter(node.cards, { idList: '591a47b3c64a334660aa72af' });
+    node.cardsWIP = _.filter(node.cards, { idList: '591a47b17f78f4dbf51ad600' });
+
+    var total = node.cards.length;
+    node.donePercentage = (node.cardsDone.length / total);
+    node.WIPPercentage = (node.cardsWIP.length / total);
   });
   return cardsByLevel;
 }
-

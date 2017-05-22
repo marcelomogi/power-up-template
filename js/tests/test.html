@@ -1,59 +1,154 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js">
+<html>
 
-</script>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+
+    <script id="categories-template" type="text/template">
+        <table>
+            <tr>
+                <th></th>
+                <th>N1</th>
+                <th>N2</th>
+                <th>N3</th>
+                <th>N4</th>
+            </tr>
+            {{#arr}}
+            <tr>
+                <td>
+                    {{category}}
+                </td>
+                <td>
+                    {{N1.donePercentage}}
+                </td>
+                <td>
+                    {{N2.donePercentage}}
+                </td>
+                <td>
+                    {{N3.donePercentage}}
+                </td>
+                <td>
+                    {{N4.donePercentage}}
+                </td>
+            </tr>
+            {{/arr}}
+        </table>
+    </script>
+
+    <script>
+        const LEVELS = ['N1', 'N2', 'N3', 'N4'];
+
+        var cards = [
+            { "labels": [{ "name": "N1" }, { "name": "X1" }], "name": "N1", "idList": "123" },
+            { "labels": [{ "name": "N1" }, { "name": "X2" }], "name": "N2", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N1" }, { "name": "X3" }], "name": "N3", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N1" }, { "name": "X4" }], "name": "N4", "idList": "123" },
+            { "labels": [{ "name": "N1" }, { "name": "X5" }], "name": "N5", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N1" }, { "name": "X6" }], "name": "N6", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N1" }, { "name": "X7" }], "name": "N7", "idList": "123" },
+            { "labels": [{ "name": "N1" }, { "name": "X8" }], "name": "N8", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N2" }, { "name": "X1" }], "name": "N9", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N2" }, { "name": "X2" }], "name": "N10", "idList": "123" },
+            { "labels": [{ "name": "N2" }, { "name": "X3" }], "name": "N11", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N2" }, { "name": "X4" }], "name": "N12", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N2" }, { "name": "X5" }], "name": "N13", "idList": "123" },
+            { "labels": [{ "name": "N2" }, { "name": "X6" }], "name": "N14", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N2" }, { "name": "X7" }], "name": "N15", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N2" }, { "name": "X8" }], "name": "N16", "idList": "123" },
+            { "labels": [{ "name": "N3" }, { "name": "X1" }], "name": "N17", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N3" }, { "name": "X2" }], "name": "N18", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N3" }, { "name": "X3" }], "name": "N19", "idList": "123" },
+            { "labels": [{ "name": "N3" }, { "name": "X4" }], "name": "N20", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N3" }, { "name": "X5" }], "name": "N21", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N3" }, { "name": "X6" }], "name": "N22", "idList": "123" },
+            { "labels": [{ "name": "N3" }, { "name": "X7" }], "name": "N23", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N3" }, { "name": "X8" }], "name": "N24", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N4" }, { "name": "X1" }], "name": "N25", "idList": "123" },
+            { "labels": [{ "name": "N4" }, { "name": "X2" }], "name": "N26", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N4" }, { "name": "X3" }], "name": "N27", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N4" }, { "name": "X4" }], "name": "N28", "idList": "123" },
+            { "labels": [{ "name": "N4" }, { "name": "X5" }], "name": "N29", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N4" }, { "name": "X6" }], "name": "N30", "idList": "591a47b17f78f4dbf51ad600" },
+            { "labels": [{ "name": "N4" }, { "name": "X7" }], "name": "N31", "idList": "591a47b3c64a334660aa72af" },
+            { "labels": [{ "name": "N4" }, { "name": "X8" }], "name": "N32", "idList": "591a47b17f78f4dbf51ad600" }
+        ];
+
+        generateLevelMatrix = function (cards) {
+            var cardsByLevel = {};
+            //Calculates the total amount by level AND categoty
+            _.forEach(cards, function (card) {
+                var level = card.labels[0].name;
+                var categoryLabel = card.labels[1].name;
+                if (cardsByLevel[categoryLabel] == null) {
+                    cardsByLevel[categoryLabel] = {
+                        category: categoryLabel,
+                    };
+                }
+                if (cardsByLevel[categoryLabel][level] == null) {
+                    cardsByLevel[categoryLabel][level] = {
+                        cardsDone: [],
+                        cardsWIP: [],
+                        total: 0
+                    }
+                }
+
+                var node = cardsByLevel[categoryLabel][level];
+
+                if (card.idList == '591a47b3c64a334660aa72af') {
+                    node.cardsDone.push(card)
+                } else if (card.idList == '591a47b3c64a334660aa72af') {
+                    node.cardsWIP.push(card)
+                }
+                node.total++;
+                node.donePercentage = node.cardsDone.length / node.total;
+                node.WIPPercentage = node.cardsWIP.length / node.total;
+            });
+
+            //Calculates the total amount by level
+            cardsByLevel['total'] = {
+                category: 'total'
+            };
+
+            _.forEach(LEVELS, function (level) {
+                cardsByLevel['total'][level] = {};
+
+                var node = cardsByLevel['total'][level];
+                node.cards = _.filter(cards, function (card) {
+                    return _.find(card.labels, { 'name': level }) != null;
+                });
+                node.cardsDone = _.filter(node.cards, { idList: '591a47b3c64a334660aa72af' });
+                node.cardsWIP = _.filter(node.cards, { idList: '591a47b17f78f4dbf51ad600' });
+
+                var total = node.cards.length;
+                node.donePercentage = (node.cardsDone.length / total);
+                node.WIPPercentage = (node.cardsWIP.length / total);
+            });
+            return cardsByLevel;
+        }
+
+        var arr = _.values(generateLevelMatrix(cards));
+        console.log(arr);
+    </script>
+
+    <style>
+        th,
+        td {
+            color: black
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content"> </div>
+
+</body>
 
 <script>
-    const LEVELS = ['N1', 'N2', 'N3', 'N4'];
-
-    var cards = [
-       { "labels": [ { "name": "N1" }, { "name": "X1" } ], "name": "N1", "idList": "123" },
-{ "labels": [ { "name": "N1" }, { "name": "X2" } ], "name": "N2", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N1" }, { "name": "X3" } ], "name": "N3", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N1" }, { "name": "X4" } ], "name": "N4", "idList": "123" },
-{ "labels": [ { "name": "N1" }, { "name": "X5" } ], "name": "N5", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N1" }, { "name": "X6" } ], "name": "N6", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N1" }, { "name": "X7" } ], "name": "N7", "idList": "123" },
-{ "labels": [ { "name": "N1" }, { "name": "X8" } ], "name": "N8", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N2" }, { "name": "X1" } ], "name": "N9", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N2" }, { "name": "X2" } ], "name": "N10", "idList": "123" },
-{ "labels": [ { "name": "N2" }, { "name": "X3" } ], "name": "N11", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N2" }, { "name": "X4" } ], "name": "N12", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N2" }, { "name": "X5" } ], "name": "N13", "idList": "123" },
-{ "labels": [ { "name": "N2" }, { "name": "X6" } ], "name": "N14", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N2" }, { "name": "X7" } ], "name": "N15", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N2" }, { "name": "X8" } ], "name": "N16", "idList": "123" },
-{ "labels": [ { "name": "N3" }, { "name": "X1" } ], "name": "N17", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N3" }, { "name": "X2" } ], "name": "N18", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N3" }, { "name": "X3" } ], "name": "N19", "idList": "123" },
-{ "labels": [ { "name": "N3" }, { "name": "X4" } ], "name": "N20", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N3" }, { "name": "X5" } ], "name": "N21", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N3" }, { "name": "X6" } ], "name": "N22", "idList": "123" },
-{ "labels": [ { "name": "N3" }, { "name": "X7" } ], "name": "N23", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N3" }, { "name": "X8" } ], "name": "N24", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N4" }, { "name": "X1" } ], "name": "N25", "idList": "123" },
-{ "labels": [ { "name": "N4" }, { "name": "X2" } ], "name": "N26", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N4" }, { "name": "X3" } ], "name": "N27", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N4" }, { "name": "X4" } ], "name": "N28", "idList": "123" },
-{ "labels": [ { "name": "N4" }, { "name": "X5" } ], "name": "N29", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N4" }, { "name": "X6" } ], "name": "N30", "idList": "591a47b17f78f4dbf51ad600" },
-{ "labels": [ { "name": "N4" }, { "name": "X7" } ], "name": "N31", "idList": "591a47b3c64a334660aa72af" },
-{ "labels": [ { "name": "N4" }, { "name": "X8" } ], "name": "N32", "idList": "591a47b17f78f4dbf51ad600" }
-    ];
-
-    generateLevelMatrix = function (cards) {
-        var cardsByLevel = {};
-        _.forEach(LEVELS, function (level) {
-            cardsByLevel[level] = {};
-            cardsByLevel[level].cards = _.filter(cards, function (card) {
-                return _.find(card.labels, { 'name': level }) != null;
-            });
-            cardsByLevel[level].cardsDone = _.filter(cardsByLevel[level].cards, { idList: '591a47b3c64a334660aa72af' });
-            cardsByLevel[level].cardsWIP = _.filter(cardsByLevel[level].cards, { idList: '591a47b17f78f4dbf51ad600' });
-        });
-        return cardsByLevel;
-    }
-
-
-    console.log(generateLevelMatrix(cards));
-
+        var template = document.getElementById('categories-template').innerHTML;
+        Mustache.parse(template);   // optional, speeds up future uses
+        var rendered = Mustache.render(template, { arr: arr });
+        console.log('Rendered ', rendered)
+        document.getElementById('content').innerHTML = rendered;
 </script>
+
+</html>
