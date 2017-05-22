@@ -19,16 +19,16 @@
                     {{category}}
                 </td>
                 <td>
-                    {{N1.donePercentage}}
+                    {{#toFixed}}{{N1.donePercentage}}{{/toFixed}}
                 </td>
                 <td>
-                    {{N2.donePercentage}}
+                    {{#toFixed}}{{N2.donePercentage}}{{/toFixed}}
                 </td>
                 <td>
-                    {{N3.donePercentage}}
+                    {{#toFixed}}{{N3.donePercentage}}{{/toFixed}}
                 </td>
                 <td>
-                    {{N4.donePercentage}}
+                    {{#toFixed}}{{N4.donePercentage}}{{/toFixed}}
                 </td>
             </tr>
             {{/arr}}
@@ -125,9 +125,6 @@
             });
             return cardsByLevel;
         }
-
-        var arr = _.values(generateLevelMatrix(cards));
-        console.log(arr);
     </script>
 
     <style>
@@ -144,11 +141,20 @@
 </body>
 
 <script>
+        var arr = _.values(generateLevelMatrix(cards));
         var template = document.getElementById('categories-template').innerHTML;
         Mustache.parse(template);   // optional, speeds up future uses
-        var rendered = Mustache.render(template, { arr: arr });
+        var rendered = Mustache.render(template, {
+            arr: arr,
+            toFixed: function () {
+                return function (num, render) {
+                    return parseFloat(render(num)).toFixed(2) * 100 + '%';
+                }
+            }
+        });
         console.log('Rendered ', rendered)
         document.getElementById('content').innerHTML = rendered;
+
 </script>
 
 </html>
