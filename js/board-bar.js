@@ -26,13 +26,19 @@ t.render(function () {
     .then(function (cards) {
       console.log('Sucess:', cards);
       var matrix = generateLevelMatrix(cards);
-      _.forEach(LEVELS, function (level) {
-        totalDone[level].innerHTML = (matrix[level].donePercentage * 100).toFixed(2) + '%';
+      var arr = _.values(generateLevelMatrix(cards));
+      var template = document.getElementById('categories-template').innerHTML;
+      Mustache.parse(template);   // optional, speeds up future uses
+      var rendered = Mustache.render(template, {
+        arr: arr,
+        toFixed: function () {
+          return function (num, render) {
+            return parseFloat(render(num)).toFixed(2) * 100 + '%';
+          }
+        }
       });
-
-
-
-
+      console.log('Rendered ', rendered)
+      document.getElementById('content').innerHTML = rendered;
     })
     .catch(function (fail) {
       console.log('Fail:', fail);
