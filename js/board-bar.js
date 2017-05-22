@@ -50,7 +50,11 @@ generateLevelMatrix = function (cards) {
   //Calculates the total amount by level AND categoty
   _.forEach(cards, function (card) {
     var level = card.labels[0].name;
-    var categoryLabel = card.labels[1].name;
+    if (card.labels[1] != null) {
+      var categoryLabel = card.labels[1].name;
+    } else {
+      var categoryLabel = 'No label';
+    }
     if (cardsByLevel[categoryLabel] == null) {
       cardsByLevel[categoryLabel] = {
         category: categoryLabel,
