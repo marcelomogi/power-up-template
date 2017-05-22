@@ -33,7 +33,7 @@ t.render(function () {
         arr: arr,
         toFixed: function () {
           return function (num, render) {
-            return parseFloat(render(num)).toFixed(2) * 100 + '%';
+            return (parseFloat(render(num)).toFixed(2) * 100) + '%';
           }
         }
       });
